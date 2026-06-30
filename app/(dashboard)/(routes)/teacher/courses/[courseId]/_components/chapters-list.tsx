@@ -54,7 +54,7 @@ export const ChaptersList = ({
 
     const bulkUpdateData = updatedChapters.map(chapter => ({
       id: chapter._id,
-      position: items.findIndex(item => item.id === chapter._id),
+      position: items.findIndex(item => item._id === chapter._id),
     }))
 
     onReorder(bulkUpdateData)
@@ -68,7 +68,7 @@ export const ChaptersList = ({
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="chapters">
         {provided => (
-          <div {...provided.droppableProps} ref={provided.innerRef}>
+          <div {...provided.droppableProps} ref={provided.innerRef as any}>
             {chapters.map((chapter, index) => (
               <Draggable
                 index={index}
@@ -82,7 +82,7 @@ export const ChaptersList = ({
                       chapter.isPublished &&
                         'bg-sky-100 border-sky-200 text-sky-700',
                     )}
-                    ref={provided.innerRef}
+                    ref={provided.innerRef as any}
                     {...provided.draggableProps}
                   >
                     <div
