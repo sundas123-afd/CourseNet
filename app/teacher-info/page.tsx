@@ -21,20 +21,6 @@ import {
   FormControl,
 } from '@/components/ui/form'
 
-interface TeacherInfoFormProps {
-  initialData?: {
-    userId?: string
-    fullName?: string
-    bio?: string
-    experience?: number
-    expertise?: string[]
-    socialLinks?: string[]
-    education?: string
-    phone?: string
-    email?: string
-  }
-}
-
 const formSchema = z.object({
   fullName: z
     .string()
@@ -49,7 +35,7 @@ const formSchema = z.object({
   email: z.string().email('Invalid email address').optional().or(z.literal('')),
 })
 
-const TeacherInfoForm = ({ initialData }: TeacherInfoFormProps) => {
+const TeacherInfoForm = () => {
   const router = useRouter()
   const { userId } = useAuth()
   const [loading, setLoading] = useState(true)
@@ -78,11 +64,11 @@ const TeacherInfoForm = ({ initialData }: TeacherInfoFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      fullName: initialData?.fullName || '',
-      bio: initialData?.bio || '',
-      education: initialData?.education || '',
-      phone: initialData?.phone || '',
-      email: initialData?.email || '',
+      fullName: '',
+      bio: '',
+      education: '',
+      phone: '',
+      email: '',
     },
   })
 
