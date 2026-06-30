@@ -1,11 +1,5 @@
 import mongoose, { Mongoose } from 'mongoose';
 
-const DATABASE_URL = process.env.DATABASE_URL as string;
-
-if (!DATABASE_URL) {
-  throw new Error('Please define the DATABASE_URL environment variable inside .env.local');
-}
-
 interface MongooseCache {
   conn: Mongoose | null;
   promise: Promise<Mongoose> | null;
@@ -22,6 +16,12 @@ if (!global.mongoose) {
 }
 
 async function connectDB(): Promise<Mongoose> {
+  const DATABASE_URL = process.env.DATABASE_URL as string;
+
+  if (!DATABASE_URL) {
+    throw new Error('Please define the DATABASE_URL environment variable inside .env.local');
+  }
+
   if (cached.conn) {
     return cached.conn;
   }
