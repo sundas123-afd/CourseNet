@@ -1,0 +1,78 @@
+
+Project Title: CourseNet: Comprehensive Learning platform 
+Functional Requirements: 
+1. Course Management 
+Browse and Filter Courses: 
+Users will be able to browse a list of available courses. 
+Purchase Courses Using Stripe: 
+Filter options will include categories, difficulty levels, and ratings to help users find 
+courses that match their interests and skill levels. 
+Integrate Stripe for secure and seamless payment processing. 
+Users will be able to purchase courses directly from the platform. 
+View Course Details: 
+Users can view detailed information about each course, including chapters and 
+descriptions. 
+Each course page will provide a comprehensive overview of the course content and 
+structure. 
+2. User Management 
+User Authentication and Authorization Using Clerk: 
+Implement a Clerk for secure user authentication and authorization. 
+Ensure user data is handled securely and efficiently. 
+Student Dashboard: 
+A dedicated dashboard for students to track their course progress and status. 
+Students can view enrolled courses, completed courses, and progress metrics. 
+Teacher Mode: 
+A separate mode for teachers to create and manage their courses. 
+Teachers can upload course content, edit existing courses, and view student progress. 
+3. Chapter Management 
+Mark Chapters as Completed or Uncompleted: 
+Drag and Drop Functionality: 
+Students can mark chapters as completed or uncompleted, allowing them to track their 
+learning progress. 
+Teachers can reorder chapters using drag-and-drop functionality, making it easy to 
+organize course content. 
+Rich Text Editor for Chapter Descriptions: 
+Provide a rich text editor for teachers to create detailed chapter descriptions. 
+The editor will support text formatting, images, links, and other multimedia elements. 
+Upload Thumbnails, Attachments, and Videos: 
+Teachers can upload thumbnails to visually represent chapters. 
+Attachments and additional resources can be uploaded for each chapter. 
+Support for video uploads to include video lectures and tutorials. 
+4. Video Processing and Playback 
+Upload and Process Videos: 
+Enable teachers to upload video content for their courses. 
+Smooth Video Playback: 
+Videos will be processed for smooth playback across various devices and network 
+conditions. 
+Implement features to ensure smooth video playback, such as adaptive streaming. 
+Support for various video formats and resolutions to enhance the user experience. 
+5. Additional Features 
+Notepad for Taking Notes: 
+Include a notepad feature within the platform, allowing students to take notes while 
+learning. 
+Notes can be saved and organized by course and chapter. 
+Progress Calculation for Each Course: 
+Automatically calculate and display the student's progress for each course. 
+Provide visual indicators and progress bars to help students track their learning journey. 
+Non-Functional Requirement 
+1. Performance: 
+• The platform should work quickly and smoothly. 
+• It should handle many users at the same time without slowing down or 
+crashing. 
+2. Scalability: 
+• The platform should be able to grow as more users join and more courses 
+are added. 
+• It should continue to work well even as the number of users and courses 
+increases. 
+3. Security: 
+• Transactions (like payments) should be safe and protected from fraud. 
+• User data (like personal information and passwords) should be kept secure 
+and private. 
+4. Usability: 
+• The platform should be easy to use and navigate. 
+• Users should be able to find what they need quickly and perform tasks 
+without confusion. 
+5. Maintainability: 
+• The code used to build the platform should be clear and well-organized. 
+• It should be easy for developers to update and improve the platform in 
+the future. 
