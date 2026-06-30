@@ -76,7 +76,7 @@ const SearchPage = async ({ searchParams }: SearchPageProps) => {
       fullName: course.teacherInfo.fullName,
       profileImage: course.teacherInfo.profileImage,
     } : undefined,
-  }));
+  } as unknown as CourseWithProgressWithCategory));
 
   return (
     <>
