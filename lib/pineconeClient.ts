@@ -1,16 +1,19 @@
 import { Pinecone } from "@pinecone-database/pinecone";
 
-// Retrieve API Key and Environment from environment variables
-const apiKey = process.env.PINECONE_API_KEY;
+let indexInstance: any = null;
 
-if (!apiKey) {
-  throw new Error("Pinecone API key not found");
-}
+export const getPineconeIndex = () => {
+  if (indexInstance) return indexInstance;
 
-// Initialize Pinecone client
-const pinecone = new Pinecone({
-  apiKey,
-});
+  const apiKey = process.env.PINECONE_API_KEY;
+  if (!apiKey) {
+    throw new Error("Pinecone API key not found. Please add PINECONE_API_KEY to your environment variables.");
+  }
 
-// Initialize and export the Pinecone index
-export const index = pinecone.Index("coursenet");
+  const pinecone = new Pinecone({
+    apiKey,
+  });
+
+  indexInstance = pinecone.Index("coursenet");
+  return indexInstance;
+};

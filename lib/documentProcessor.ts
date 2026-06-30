@@ -1,16 +1,34 @@
 import { Pinecone } from "@pinecone-database/pinecone";
-import { GoogleGenerativeAI, GenerativeModel, Content, ContentEmbedding } from "@google/generative-ai";
-import { Document } from "langchain/document";
+import { GoogleGenerativeAI, GenerativeModel, ContentEmbedding } from "@google/generative-ai";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
-const pinecone = new Pinecone({
-  apiKey: process.env.PINECONE_API_KEY!,
-});
+let pineconeInstance: Pinecone | null = null;
+let genAIInstance: GoogleGenerativeAI | null = null;
+let modelInstance: GenerativeModel | null = null;
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY!);
-const model: GenerativeModel = genAI.getGenerativeModel({ model: "gemini-pro-1.5" });
+function getPinecone() {
+  if (pineconeInstance) return pineconeInstance;
+  const apiKey = process.env.PINECONE_API_KEY;
+  if (!apiKey) {
+    throw new Error("Pinecone API key not found. Please set PINECONE_API_KEY.");
+  }
+  pineconeInstance = new Pinecone({ apiKey });
+  return pineconeInstance;
+}
+
+function getModel() {
+  if (modelInstance) return modelInstance;
+  const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+  if (!apiKey) {
+    throw new Error("Google Generative AI API key not found. Please set GOOGLE_GENERATIVE_AI_API_KEY.");
+  }
+  genAIInstance = new GoogleGenerativeAI(apiKey);
+  modelInstance = genAIInstance.getGenerativeModel({ model: "gemini-pro-1.5" });
+  return modelInstance;
+}
 
 async function embedText(text: string): Promise<number[]> {
+  const model = getModel();
   const result = await model.embedContent(text);
   if (!result.embedding) {
     throw new Error("Failed to generate embedding");
@@ -24,7 +42,6 @@ function convertContentEmbeddingToArray(embedding: ContentEmbedding): number[] {
   } else if (embedding instanceof Float32Array || embedding instanceof Float64Array) {
     return Array.from(embedding);
   } else if (typeof embedding === 'object' && embedding !== null) {
-    // Assuming the object has numeric properties
     return Object.values(embedding).filter(value => typeof value === 'number');
   } else {
     throw new Error("Unsupported embedding format");
@@ -38,7 +55,7 @@ export async function processDocument(text: string, metadata: Record<string, any
   });
 
   const docs = await textSplitter.createDocuments([text], [metadata]);
-  const index = pinecone.Index(process.env.PINECONE_INDEX_NAME!);
+  const index = getPinecone().Index(process.env.PINECONE_INDEX_NAME!);
 
   for (const doc of docs) {
     const embedding = await embedText(doc.pageContent);
@@ -53,7 +70,7 @@ export async function processDocument(text: string, metadata: Record<string, any
 }
 
 export async function queryPinecone(query: string) {
-  const index = pinecone.Index(process.env.PINECONE_INDEX_NAME!);
+  const index = getPinecone().Index(process.env.PINECONE_INDEX_NAME!);
   const queryEmbedding = await embedText(query);
 
   const results = await index.query({
@@ -66,6 +83,7 @@ export async function queryPinecone(query: string) {
 }
 
 export async function generateResponse(query: string, context: string[]) {
+  const model = getModel();
   const prompt = `
     Context: ${context.join('\n\n')}
     

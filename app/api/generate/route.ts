@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { index } from '@/lib/pineconeClient';
+import { getPineconeIndex } from '@/lib/pineconeClient';
 import { generateEmbedding } from '@/lib/emdeddings';
 
 export async function POST(req: Request) {
@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     const embedding = await generateEmbedding(text);
 
     // Upsert the document to Pinecone
-    await index.upsert([
+    await getPineconeIndex().upsert([
       {
         id: title,
         values: embedding,
