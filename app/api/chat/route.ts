@@ -2,13 +2,13 @@ import * as fs from 'fs';
 import * as path from 'path';
 import Groq from 'groq-sdk';
 
-export const loadKnowledgeBase = async (): Promise<string> => {
+const loadKnowledgeBase = async (): Promise<string> => {
   const filePath = path.join(process.cwd(), 'data', 'knowledge-base.txt');
   const text = fs.readFileSync(filePath, 'utf-8');
   return text;
 };
 
-export async function queryLLM(
+async function queryLLM(
   question: string,
 ): Promise<{result: string, sources: any[]}> {
   try {
