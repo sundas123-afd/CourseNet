@@ -63,11 +63,11 @@ async function deleteAllStripeData() {
     
     for (const price of prices.data) {
       try {
-        console.log(`🗑️ Deleting price: ${price.id}`);
-        await stripe.prices.del(price.id);
-        console.log(`✅ Deleted price: ${price.id}`);
+        console.log(`🗑️ Archiving price: ${price.id}`);
+        await stripe.prices.update(price.id, { active: false });
+        console.log(`✅ Archived price: ${price.id}`);
       } catch (error) {
-        console.error(`❌ Failed to delete price ${price.id}:`, error);
+        console.error(`❌ Failed to archive price ${price.id}:`, error);
       }
     }
     
