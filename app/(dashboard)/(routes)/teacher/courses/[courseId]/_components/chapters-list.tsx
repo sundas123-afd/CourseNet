@@ -84,6 +84,7 @@ export const ChaptersList = ({
                     )}
                     ref={provided.innerRef as any}
                     {...provided.draggableProps}
+                    style={provided.draggableProps.style as any}
                   >
                     <div
                       className={cn(
