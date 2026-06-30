@@ -28,7 +28,7 @@ export default function ContactUs() {
               <p className="text-muted-foreground">
                 The contact form is currently inactive. Get a functional and
                 working contact form with Ajax & PHP in a few minutes. Just copy
-                and paste the files, add a little code, and you're done.{" "}
+                and paste the files, add a little code, and you&apos;re done.{" "}
                 <a
                   href="https://htmlcodex.com/contact-form"
                   className="text-primary hover:underline"

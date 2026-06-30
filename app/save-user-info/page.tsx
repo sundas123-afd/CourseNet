@@ -48,7 +48,8 @@ export default function SaveUserInfoPage() {
     };
 
     saveUserInfo();
-  }, [isLoaded, isSignedIn, user]); // Removed isSaving and router from dependencies
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded, isSignedIn, user]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
